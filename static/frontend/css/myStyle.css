@@ -690,7 +690,7 @@ form#inquiry-form {
 section.footer {
     position: absolute;
     padding: 30px 0 0 0;
-    width: 100vw;
+    width: 100%;
     background-color: var(--black);
     color: var(--white);
     text-align: center;
