@@ -1,0 +1,768 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motors - Car Dealership</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+    rel="stylesheet">
+  <link rel="stylesheet" href="static/frontend/css/myStyle.css">
+  <link href="https://fonts.googleapis.com/css2?family=Verdana&display=swap" rel="stylesheet">
+
+
+  <style>
+    
+
+    body {
+      font-family: Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    /* Header styles */
+    
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark-color);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 15px 0;
+    }
+
+    .logo-bg {
+      background-color: #efeae8;
+      clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+      padding: 15px 146px 15px 30px;
+    }
+
+    .logo-containers {
+      position: absolute;
+      top: 60px;
+      left: 10px;
+    }
+
+    .logo-containers img {
+      padding: 10px;
+      background-color: #000000;
+      border-radius: 15px;
+      box-shadow: 0 0 5px 2px #fffcf25e;
+
+    }
+
+    nav.navbar.navbar-expand-lg.navbar-light {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+}
+
+    .main-nav {
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-link {
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 14px;
+      padding: 20px 15px !important;
+      color: var(--dark-color) !important;
+    }
+
+    .nav-link:hover {
+      color: var(--black) !important;
+    }
+
+    .hero-banner {
+      height: 400px;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('static/frontend/images/category-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .breadcrumb-wrapper {
+      text-align: center;
+      width: 100%;
+    }
+
+    .breadcrumb-item a {
+      color: white;
+      text-decoration: none;
+    }
+
+    
+
+    
+    .breadcrumb-item+.breadcrumb-item::before {
+      color: white;
+    }
+
+
+
+    @media (max-width: 768px) {
+      .logo-bg {
+        padding: 15px 30px 15px 15px;
+      }
+
+
+
+      .hero-banner {
+        height: 300px;
+      }
+    }
+
+    li.breadcrumb-item.acrive a{
+      color: var(--black);
+    background: var(--white);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 700;      
+    }
+
+
+
+    /* Sorting bar */
+    .sorting-bar {
+      background-color: #f5f5f5;
+      padding: 15px 0;
+      margin-bottom: 20px;
+    }
+
+    /* Car cards */
+    .car-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .car-card:hover {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .car-img {
+      height: 200px;
+      width: 100%;
+      object-fit: contain;
+    }
+
+    .car-title {
+      padding: 10px 15px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .car-name {
+      font-weight: bold;
+      font-size: 16px;
+      color: #222732;
+      margin: 0;
+    }
+
+    .car-price {
+    background-color: var(--black);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 3px;
+    font-weight: bold;
+    clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+    .car-info {
+      display: flex;
+      padding: 10px 15px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    .car-detail {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+
+    .car-detail i {
+      margin-right: 5px;
+    }
+
+    /* Pagination */
+    .pagination .page-item .page-link {
+      color: #222732;
+    }
+
+    .pagination .page-item.active .page-link {
+      background-color: var(--black);
+      border-color: var(--black);
+      color: white;
+    }
+
+
+
+
+
+    .opening-hours {
+      margin-bottom: 20px;
+    }
+
+    .opening-hours p {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
+      margin-bottom: 5px;
+      padding-bottom: 5px;
+    }
+
+    .latest-blogs img {
+      width: 70px;
+      height: 50px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    .social-links a {
+      color: white;
+      margin-right: 15px;
+      font-size: 20px;
+    }
+
+    .newsletter input {
+      border: none;
+      padding: 8px 10px;
+    }
+
+    .newsletter button {
+      background-color: var(--black);
+      border: none;
+      color: white;
+    }
+
+    /* Ad Banner */
+    .ad-banner {
+      margin: 40px 0;
+    }
+
+    .ad-banner img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="container">
+      <div class="d-flex justify-content-end">
+        <span class="topbar-contact">
+          <i class="fas fa-phone"></i> +1 234 567 890
+        </span>
+        <span class="topbar-contact">
+          <i class="fas fa-envelope"></i> info@example.com
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation -->
+  <!-- <div class="main-nav">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-3 col-md-4">
+          <div class="logo-bg d-inline-block">
+            <div class="logo-containers">
+              <img src="static/frontend/images/logo-white.jpeg" height="80" alt="Logo">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9 col-md-8">
+          <nav class="navbar navbar-expand-lg navbar-light">
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Accessories</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">Listing</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Blog</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Compare Cars</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Pages</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Custom</a>
+                </li>
+              </ul>
+              <div class="d-flex align-items-center">
+                <a href="#" class="me-3"><i class="fas fa-search"></i></a>
+                <a href="#" class="me-3 position-relative">
+                  <i class="fas fa-shopping-cart"></i>
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                    2
+                  </span>
+                </a>
+                <a href="#"><i class="fas fa-bars"></i></a>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Hero Banner with Product Listing Title -->
+  <div class="hero-banner">
+    <div class="logo-containers">
+      <img src="static/frontend/images/logo-white.jpeg" height="80" alt="Logo">
+    </div>
+
+
+
+    <!-- <nav class="navbar navbar-expand-lg navbar-light">
+      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/all-cars.html">All Cars</a>
+          </li>
+
+        </ul>
+
+      </div>
+    </nav> -->
+
+
+
+    <div class="breadcrumb-wrapper">
+      <div class="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb d-flex justify-content-center">
+            <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
+            <li class="breadcrumb-item acrive"><a href="/all-cars.html">All Cars</a></li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <h1 class="page-title">PRODUCT LISTING</h1> -->
+  </div>
+
+  <!-- Sorting bar -->
+  <div class="sorting-bar">
+    <div class="container">
+      <div class="row align-items-center justify-content-end">
+        <div class="col-auto">
+          <span>SORT BY:</span>
+        </div>
+        <div class="col-auto">
+          <select class="form-select">
+            <option>Date: newest first</option>
+            <option>Date: oldest first</option>
+            <option>Price: lowest first</option>
+            <option>Price: highest first</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Car Listings -->
+  <div class="container">
+    <div class="row">
+      <!-- Car Card 1 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="car-card">
+          <img src="static/frontend/images/products-images/p1.jpg" alt="Mercedes Benz" class="car-img">
+          <div class="car-title">
+            <h3 class="car-name">MERCEDES BENZ C CLASS 2015</h3>
+            <span class="car-price">$35,000</span>
+          </div>
+          <div class="car-info">
+            <div class="car-detail">
+              <i class="bi bi-speedometer"></i>
+              <span>15K mi</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-gear"></i>
+              <span>Automatic</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-fuel-pump"></i>
+              <span>110 hp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car Card 2 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="car-card">
+          <img src="static/frontend/images/products-images/p17.jpg" alt="Nissan Altima" class="car-img">
+          <div class="car-title">
+            <h3 class="car-name">NISSAN ALTIMA 2018</h3>
+            <span class="car-price">$18,500</span>
+          </div>
+          <div class="car-info">
+            <div class="car-detail">
+              <i class="bi bi-speedometer"></i>
+              <span>25K mi</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-gear"></i>
+              <span>Automatic</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-fuel-pump"></i>
+              <span>160 hp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car Card 3 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="car-card">
+          <img src="static/frontend/images/products-images/p2.jpg" alt="Acura" class="car-img">
+          <div class="car-title">
+            <h3 class="car-name">ACURA 2015</h3>
+            <span class="car-price">$29,000</span>
+          </div>
+          <div class="car-info">
+            <div class="car-detail">
+              <i class="bi bi-speedometer"></i>
+              <span>22K mi</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-gear"></i>
+              <span>Manual</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-fuel-pump"></i>
+              <span>85 hp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car Card 4 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="car-card">
+          <img src="static/frontend/images/products-images/p3.jpg" alt="Tesla Roadster" class="car-img">
+          <div class="car-title">
+            <h3 class="car-name">TESLA ROADSTER 2021</h3>
+            <span class="car-price">$105,000</span>
+          </div>
+          <div class="car-info">
+            <div class="car-detail">
+              <i class="bi bi-speedometer"></i>
+              <span>5K mi</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-gear"></i>
+              <span>Automatic</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-fuel-pump"></i>
+              <span>400 hp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car Card 5 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="car-card">
+          <img src="static/frontend/images/products-images/p10.jpg" alt="Lexus 2021" class="car-img">
+          <div class="car-title">
+            <h3 class="car-name">LEXUS 2021</h3>
+            <span class="car-price">$39,000</span>
+          </div>
+          <div class="car-info">
+            <div class="car-detail">
+              <i class="bi bi-speedometer"></i>
+              <span>13.5K mi</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-gear"></i>
+              <span>Automatic</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-fuel-pump"></i>
+              <span>240 hp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car Card 6 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="car-card">
+          <img src="static/frontend/images/products-images/p11.jpg" alt="Lexus 2020" class="car-img">
+          <div class="car-title">
+            <h3 class="car-name">LEXUS 2020</h3>
+            <span class="car-price">$38,000</span>
+          </div>
+          <div class="car-info">
+            <div class="car-detail">
+              <i class="bi bi-speedometer"></i>
+              <span>8.0K mi</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-gear"></i>
+              <span>Automatic</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-fuel-pump"></i>
+              <span>180 hp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car Card 7 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="car-card">
+          <img src="static/frontend/images/products-images/p12.jpg" alt="Lamborghini 2021" class="car-img">
+          <div class="car-title">
+            <h3 class="car-name">LAMBORGHINI 2021</h3>
+            <span class="car-price">$385,000</span>
+          </div>
+          <div class="car-info">
+            <div class="car-detail">
+              <i class="bi bi-speedometer"></i>
+              <span>2K mi</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-gear"></i>
+              <span>Automatic</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-fuel-pump"></i>
+              <span>650 hp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car Card 8 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="car-card">
+          <img src="static/frontend/images/products-images/p13.jpg" alt="Honda Accord" class="car-img">
+          <div class="car-title">
+            <h3 class="car-name">HONDA ACCORD 2021</h3>
+            <span class="car-price">$24,500</span>
+          </div>
+          <div class="car-info">
+            <div class="car-detail">
+              <i class="bi bi-speedometer"></i>
+              <span>18K mi</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-gear"></i>
+              <span>Manual</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-fuel-pump"></i>
+              <span>192 hp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional car cards (12 total) -->
+      <div class="col-lg-3 col-md-6">
+        <div class="car-card">
+          <img src="static/frontend/images/products-images/p14.jpg" alt="Chevrolet" class="car-img">
+          <div class="car-title">
+            <h3 class="car-name">CHEVROLET 2021</h3>
+            <span class="car-price">$32,900</span>
+          </div>
+          <div class="car-info">
+            <div class="car-detail">
+              <i class="bi bi-speedometer"></i>
+              <span>14K mi</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-gear"></i>
+              <span>Automatic</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-fuel-pump"></i>
+              <span>290 hp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="car-card">
+          <img src="static/frontend/images/products-images/p15.jpg" alt="BMW 2020" class="car-img">
+          <div class="car-title">
+            <h3 class="car-name">BMW 2020</h3>
+            <span class="car-price">$48,900</span>
+          </div>
+          <div class="car-info">
+            <div class="car-detail">
+              <i class="bi bi-speedometer"></i>
+              <span>12K mi</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-gear"></i>
+              <span>Automatic</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-fuel-pump"></i>
+              <span>320 hp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="car-card">
+          <img src="static/frontend/images/products-images/p16.jpg" alt="BMW 2021" class="car-img">
+          <div class="car-title">
+            <h3 class="car-name">BMW 2021</h3>
+            <span class="car-price">$51,000</span>
+          </div>
+          <div class="car-info">
+            <div class="car-detail">
+              <i class="bi bi-speedometer"></i>
+              <span>14K mi</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-gear"></i>
+              <span>Automatic</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-fuel-pump"></i>
+              <span>330 hp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="car-card">
+          <img src="static/frontend/images/products-images/p18.jpg" alt="BMW M5 2021" class="car-img">
+          <div class="car-title">
+            <h3 class="car-name">BMW M5 2021</h3>
+            <span class="car-price">$89,000</span>
+          </div>
+          <div class="car-info">
+            <div class="car-detail">
+              <i class="bi bi-speedometer"></i>
+              <span>14K mi</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-gear"></i>
+              <span>Automatic</span>
+            </div>
+            <div class="car-detail">
+              <i class="bi bi-fuel-pump"></i>
+              <span>600 hp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="row">
+      <div class="col-md-12 d-flex justify-content-center mb-4">
+        <nav>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ad Banner
+  <div class="ad-banner">
+    <div class="container">
+      <img src="/api/placeholder/1200/160" alt="BMW Ad" class="img-fluid">
+    </div>
+  </div> -->
+
+  <!-- Footer -->
+  <section class="footer sub-section">
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2024 SHK International. All rights reserved.</p>
+      </div>
+    </footer>
+  </section>
+
+  <!-- jQuery first, then Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Hover effect for car cards
+      $('.car-card').hover(
+        function () {
+          $(this).css('transform', 'translateY(-5px)');
+        },
+        function () {
+          $(this).css('transform', 'translateY(0)');
+        }
+      );
+
+      // Navigation active state toggle
+      $('.nav-link').click(function () {
+        $('.nav-link').removeClass('active');
+        $(this).addClass('active');
+      });
+
+      // Filter dropdown functionality (for "More Themes" button)
+      $('.dropdown-item').click(function () {
+        var selectedText = $(this).text();
+        // Update the dropdown-toggle button text to match the selected item
+        $(this).closest('.dropdown').find('#themeSelect').text(selectedText);
+      });
+    });
+  </script>
+</body>
+
+</html>
