@@ -810,265 +810,181 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
     <script>
         $(document).ready(function () {
-            // Gallery images array
-            const images = [
-                "static/frontend/images/products-images/p17.jpg",
-                "static/frontend/images/products-images/p16.jpg",
-                "static/frontend/images/products-images/p15.jpg",
-                "static/frontend/images/products-images/p14.jpg",
-                "static/frontend/images/products-images/p13.jpg",
-                "static/frontend/images/products-images/p17.jpg",
-                "static/frontend/images/products-images/p16.jpg",
-                "static/frontend/images/products-images/p15.jpg",
-
-            ];
-
-            let currentIndex = 0;
-            const totalImages = images.length;
-
-            // Initialize thumbnails
-            function initThumbnails() {
-                const thumbnailWrapper = $('#thumbnail-wrapper');
-                thumbnailWrapper.empty(); // Clear any existing thumbnails
-
-                // Create thumbnails for each image
-                images.forEach((src, index) => {
-                    const thumbnail = $('<img>', {
-                        src: src,
-                        alt: `Bentley Mulsanne Thumbnail ${index + 1}`,
-                        class: 'thumbnail',
-                        'data-index': index
-                    });
-
-                    // Set the first thumbnail as active
-                    if (index === 0) {
-                        thumbnail.addClass('active');
-                    }
-
-                    thumbnailWrapper.append(thumbnail);
-                });
-
-                // Reattach click event after creating thumbnails
-                $('.thumbnail').click(function () {
-                    const index = parseInt($(this).data('index'));
-                    showImage(index);
-                });
+          const images = [
+            "static/frontend/images/products-images/p17.jpg",
+            "static/frontend/images/products-images/p16.jpg",
+            "static/frontend/images/products-images/p15.jpg",
+            "static/frontend/images/products-images/p14.jpg",
+            "static/frontend/images/products-images/p13.jpg",
+            "static/frontend/images/products-images/p17.jpg",
+            "static/frontend/images/products-images/p16.jpg",
+            "static/frontend/images/products-images/p15.jpg"
+          ];
+          let currentIndex = 0;
+          const totalImages = images.length;
+        
+          function initThumbnails() {
+            const thumbnailWrapper = $('#thumbnail-wrapper');
+            thumbnailWrapper.empty();
+            images.forEach((src, index) => {
+              const thumbnail = $('<img>', {
+                src: src,
+                alt: `Bentley Mulsanne Thumbnail ${index + 1}`,
+                class: 'thumbnail',
+                'data-index': index
+              });
+              if (index === 0) thumbnail.addClass('active');
+              thumbnailWrapper.append(thumbnail);
+            });
+            $('.thumbnail').click(function () {
+              const index = parseInt($(this).data('index'));
+              showImage(index);
+            });
+          }
+        
+          function updateCounter() {
+            $('.image-count').text(`${currentIndex + 1}/${totalImages}`);
+          }
+        
+          function showImage(index) {
+            if (index < 0) index = totalImages - 1;
+            if (index >= totalImages) index = 0;
+            currentIndex = index;
+            $('#main-image').attr('src', images[index]);
+            updateCounter();
+            $('.thumbnail').removeClass('active');
+            $(`.thumbnail[data-index="${index}"]`).addClass('active');
+            const $activeThumb = $(`.thumbnail[data-index="${index}"]`);
+            const $wrapper = $('#thumbnail-wrapper');
+            const scrollLeft = $wrapper.scrollLeft();
+            const thumbLeft = $activeThumb.position().left;
+            const wrapperWidth = $wrapper.width();
+            if (thumbLeft < 0 || thumbLeft > wrapperWidth) {
+              $wrapper.animate({ scrollLeft: scrollLeft + thumbLeft - 50 }, 200);
             }
-
-            // Update image counter
-            function updateCounter() {
-                $('.image-count').text(`${currentIndex + 1}/${totalImages}`);
+          }
+        
+          $('#main-next').click(() => showImage(currentIndex + 1));
+          $('#main-prev').click(() => showImage(currentIndex - 1));
+          $('#thumb-next').click(() => {
+            const $wrapper = $('#thumbnail-wrapper');
+            $wrapper.animate({ scrollLeft: $wrapper.scrollLeft() + 200 }, 300);
+            setTimeout(checkThumbNavButtons, 300);
+          });
+          $('#thumb-prev').click(() => {
+            const $wrapper = $('#thumbnail-wrapper');
+            $wrapper.animate({ scrollLeft: $wrapper.scrollLeft() - 200 }, 300);
+            setTimeout(checkThumbNavButtons, 300);
+          });
+        
+          function checkThumbNavButtons() {
+            const $wrapper = $('#thumbnail-wrapper');
+            const scrollLeft = $wrapper.scrollLeft();
+            const maxScrollLeft = $wrapper[0].scrollWidth - $wrapper.width();
+            if (scrollLeft <= 0) {
+              $('#thumb-prev').addClass('disabled');
+            } else {
+              $('#thumb-prev').removeClass('disabled');
             }
-
-            // Main image navigation
-            function showImage(index) {
-                if (index < 0) index = totalImages - 1;
-                if (index >= totalImages) index = 0;
-
-                currentIndex = index;
-                $('#main-image').attr('src', images[index]);
-                updateCounter();
-
-                // Update thumbnail active state
-                $('.thumbnail').removeClass('active');
-                $(`.thumbnail[data-index="${index}"]`).addClass('active');
-
-                // Scroll the active thumbnail into view
-                const $activeThumb = $(`.thumbnail[data-index="${index}"]`);
-                const $wrapper = $('#thumbnail-wrapper');
-
-                const scrollLeft = $wrapper.scrollLeft();
-                const thumbLeft = $activeThumb.position().left;
-                const wrapperWidth = $wrapper.width();
-
-                if (thumbLeft < 0 || thumbLeft > wrapperWidth) {
-                    $wrapper.animate({
-                        scrollLeft: scrollLeft + thumbLeft - 50
-                    }, 200);
-                }
+            if (scrollLeft >= maxScrollLeft - 5) {
+              $('#thumb-next').addClass('disabled');
+            } else {
+              $('#thumb-next').removeClass('disabled');
             }
-
-            // Main next button click
-            $('#main-next').click(function () {
-                showImage(currentIndex + 1);
-            });
-
-            // Main prev button click
-            $('#main-prev').click(function () {
-                showImage(currentIndex - 1);
-            });
-
-            // Thumbnail navigation buttons
-            $('#thumb-next').click(function () {
-                const $wrapper = $('#thumbnail-wrapper');
-                $wrapper.animate({
-                    scrollLeft: $wrapper.scrollLeft() + 200
-                }, 300);
-
-                // Check if we should hide next button
-                setTimeout(checkThumbNavButtons, 300);
-            });
-
-            $('#thumb-prev').click(function () {
-                const $wrapper = $('#thumbnail-wrapper');
-                $wrapper.animate({
-                    scrollLeft: $wrapper.scrollLeft() - 200
-                }, 300);
-
-                // Check if we should hide prev button
-                setTimeout(checkThumbNavButtons, 300);
-            });
-
-            // Check if we should show/hide thumb nav buttons
-            function checkThumbNavButtons() {
-                const $wrapper = $('#thumbnail-wrapper');
-                const scrollLeft = $wrapper.scrollLeft();
-                const maxScrollLeft = $wrapper[0].scrollWidth - $wrapper.width();
-
-                if (scrollLeft <= 0) {
-                    $('#thumb-prev').addClass('disabled');
-                } else {
-                    $('#thumb-prev').removeClass('disabled');
-                }
-
-                if (scrollLeft >= maxScrollLeft - 5) {
-                    $('#thumb-next').addClass('disabled');
-                } else {
-                    $('#thumb-next').removeClass('disabled');
-                }
+          }
+        
+          function openLightbox(index) {
+            $('#lightbox-img').attr('src', images[index]);
+            $('#lightbox').addClass('active');
+            $('body').css('overflow', 'hidden');
+          }
+        
+          function closeLightbox() {
+            $('#lightbox').removeClass('active');
+            $('body').css('overflow', '');
+          }
+        
+          $('#main-image').click(() => openLightbox(currentIndex));
+          $('#lightbox-close').click(closeLightbox);
+          $('#lightbox').click(function (e) {
+            if (e.target === this) closeLightbox();
+          });
+          $('#lightbox-next').click(function (e) {
+            e.stopPropagation();
+            let index = currentIndex + 1;
+            if (index >= totalImages) index = 0;
+            $('#lightbox-img').attr('src', images[index]);
+            currentIndex = index;
+          });
+          $('#lightbox-prev').click(function (e) {
+            e.stopPropagation();
+            let index = currentIndex - 1;
+            if (index < 0) index = totalImages - 1;
+            $('#lightbox-img').attr('src', images[index]);
+            currentIndex = index;
+          });
+          $(document).keydown(function (e) {
+            if (!$('#lightbox').hasClass('active')) return;
+            if (e.key === 'Escape') {
+              closeLightbox();
+            } else if (e.key === 'ArrowRight') {
+              $('#lightbox-next').click();
+            } else if (e.key === 'ArrowLeft') {
+              $('#lightbox-prev').click();
             }
-
-            // Lightbox functions
-            function openLightbox(index) {
-                $('#lightbox-img').attr('src', images[index]);
-                $('#lightbox').addClass('active');
-                $('body').css('overflow', 'hidden');
+          });
+        
+          initThumbnails();
+          showImage(0);
+          checkThumbNavButtons();
+          $(window).resize(checkThumbNavButtons);
+        
+          const $descText = $('#description-text');
+          $descText.addClass('collapsed');
+          if ($descText[0].scrollHeight > $descText[0].clientHeight) {
+            const toggleBtn = $('<button>', {
+              text: 'Show more',
+              class: 'show-more-btn',
+              type: 'button'
+            });
+            toggleBtn.on('click', function () {
+              if ($descText.hasClass('collapsed')) {
+                $descText.removeClass('collapsed');
+                $(this).text('Show less');
+              } else {
+                $descText.addClass('collapsed');
+                $(this).text('Show more');
+              }
+            });
+            $('#description-section').append(toggleBtn);
+          }
+        
+          var $gallerySection = $('#gallery-section');
+          var $leftColumn = $('.left-column');
+          var $galleryPlaceholder = $('<div id="gallery-placeholder"></div>');
+          $galleryPlaceholder.insertBefore($gallerySection);
+          var $row = $leftColumn.closest('.row');
+          
+          function adjustLayout() {
+            if ($(window).width() < 768) {
+              if (!$gallerySection.data('moved')) {
+                $gallerySection.detach().insertBefore($row);
+                $gallerySection.data('moved', true);
+              }
+            } else {
+              if ($gallerySection.data('moved')) {
+                $gallerySection.detach().insertAfter($galleryPlaceholder);
+                $gallerySection.data('moved', false);
+              }
             }
-
-            function closeLightbox() {
-                $('#lightbox').removeClass('active');
-                $('body').css('overflow', '');
-            }
-
-            // Open lightbox when clicking on main image
-            $('#main-image').click(function () {
-                openLightbox(currentIndex);
-            });
-
-            // Close lightbox
-            $('#lightbox-close').click(closeLightbox);
-
-            // Close lightbox when clicking outside the image
-            $('#lightbox').click(function (e) {
-                if (e.target === this) {
-                    closeLightbox();
-                }
-            });
-
-            // Lightbox navigation
-            $('#lightbox-next').click(function (e) {
-                e.stopPropagation();
-                let index = currentIndex + 1;
-                if (index >= totalImages) index = 0;
-
-                $('#lightbox-img').attr('src', images[index]);
-                currentIndex = index;
-            });
-
-            $('#lightbox-prev').click(function (e) {
-                e.stopPropagation();
-                let index = currentIndex - 1;
-                if (index < 0) index = totalImages - 1;
-
-                $('#lightbox-img').attr('src', images[index]);
-                currentIndex = index;
-            });
-
-            // Keyboard navigation for lightbox
-            $(document).keydown(function (e) {
-                if (!$('#lightbox').hasClass('active')) return;
-
-                if (e.key === 'Escape') {
-                    closeLightbox();
-                } else if (e.key === 'ArrowRight') {
-                    $('#lightbox-next').click();
-                } else if (e.key === 'ArrowLeft') {
-                    $('#lightbox-prev').click();
-                }
-            });
-
-            // Initialize
-            initThumbnails();
-            showImage(0); // Show the first image by default
-            checkThumbNavButtons();
-
-            // Handle window resize
-            $(window).resize(function () {
-                checkThumbNavButtons();
-            });
-
-            // Toggle description
-            const $descText = $('#description-text');
-            // Apply the collapsed class by default. This uses CSS -webkit-line-clamp to limit to 3 lines.
-            $descText.addClass('collapsed');
-
-            // Create and append the toggle button only if the text overflows.
-            // We check the scrollHeight vs. clientHeight.
-            if ($descText[0].scrollHeight > $descText[0].clientHeight) {
-                const toggleBtn = $('<button>', {
-                    text: 'Show more',
-                    class: 'show-more-btn',
-                    type: 'button'
-                });
-                toggleBtn.on('click', function () {
-                    if ($descText.hasClass('collapsed')) {
-                        $descText.removeClass('collapsed');
-                        $(this).text('Show less');
-                    } else {
-                        $descText.addClass('collapsed');
-                        $(this).text('Show more');
-                    }
-                });
-                $('#description-section').append(toggleBtn);
-            }
+          }
+          adjustLayout();
+          $(window).resize(adjustLayout);
         });
-
-        $(document).ready(function() {
-  // Store the gallery section and its original parent (the left column)
-  var $gallerySection = $('#gallery-section');
-  var $leftColumn = $('.left-column');
-  // Use a placeholder to remember where the gallery was originally
-  var $galleryPlaceholder = $('<div id="gallery-placeholder"></div>');
-  $galleryPlaceholder.insertBefore($gallerySection);
-  
-  // The entire row containing left and right columns
-  var $row = $leftColumn.closest('.row');
-  
-  function adjustLayout() {
-    if ($(window).width() < 768) {
-      // On mobile: detach gallery-section and insert it before the row
-      if (!$gallerySection.data('moved')) {
-        $gallerySection.detach().insertBefore($row);
-        $gallerySection.data('moved', true);
-      }
-    } else {
-      // On desktop: if the gallery was moved, put it back to the left column
-      if ($gallerySection.data('moved')) {
-        $gallerySection.detach().insertAfter($galleryPlaceholder);
-        $gallerySection.data('moved', false);
-      }
-    }
-  }
-  
-  // Run on document ready and window resize
-  adjustLayout();
-  $(window).resize(adjustLayout);
-});
-
-    </script>
+        </script>
+        
 
     
 </body>
