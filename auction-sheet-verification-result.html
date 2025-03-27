@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0;">
+  <title>Auction Sheet Verification Result - SHK International</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="static/frontend/css/myStyle.css">
+  <link href="https://fonts.googleapis.com/css2?family=Verdana&display=swap" rel="stylesheet">
+
+  <style>
+    /* Preserve hero banner & top bar styles */
+    .hero-banner {
+      height: 250px;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('static/frontend/images/category-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      clip-path: polygon(50% 0%, 100% 0, 100% 85%, 50% 100%, 50% 100%, 0 85%, 0 0);
+    }
+    .breadcrumb-wrapper {
+      text-align: center;
+      width: 100%;
+    }
+    .breadcrumb-item a {
+      color: white;
+      text-decoration: none;
+    }
+    li.breadcrumb-item.acrive a {
+      color: var(--black);
+      background: var(--white);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: 700;
+    }
+    .logo-containers {
+      position: absolute;
+      top: 60px;
+      left: 10px;
+    }
+    .logo-containers img {
+      padding: 10px;
+      background-color: #000000;
+      border-radius: 15px;
+      box-shadow: 0 0 5px 2px #fffcf25e;
+    }
+    .breadcrumb-item+.breadcrumb-item::before {
+      color: white;
+    }
+
+    /* Redesigned Verification Section for Results */
+    .verification-section {
+      background: #ffffff;
+      padding: 2.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 60px;
+      z-index: 2;
+      position: relative;
+    }
+    .verification-title {
+      font-weight: 700;
+      color: #070c52;
+      margin-bottom: 1.5rem;
+    }
+    .verification-section p.lead {
+      font-size: 1.125rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .verification-details{
+        text-align: left;
+    }
+    .search-input input {
+      border-radius: 0.5rem 0 0 0.5rem;
+      border: 1px solid #ced4da;
+    }
+    .search-input button {
+      border-radius: 0 0.5rem 0.5rem 0;
+    }
+    /* New style for search result display */
+    .result-display {
+      margin-top: 2rem;
+    }
+    .result-display img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+    .result-display h5 {
+      margin-top: 1rem;
+      color: #070c52;
+    }
+
+    img.result-image.img-fluid{
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+    }
+    /* Redesigned Payment Methods */
+    .payment-methods {
+      background-color: #f1f1f1;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-top: 2rem;
+    }
+    .payment-methods .logo {
+      max-height: 40px;
+      margin: 0.5rem;
+      filter: grayscale(30%);
+      opacity: 0.8;
+    }
+    .payment-methods h5 {
+      margin-bottom: 1rem;
+    }
+
+    /* Redesigned Section Headers */
+    .section-header {
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: #343a40;
+    }
+
+    /* Redesigned Feature Boxes */
+    .feature-box {
+      background-color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+    .feature-box h4 {
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .feature-box p {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+      color: #555555;
+    }
+    .feature-box ul {
+      padding-left: 1rem;
+    }
+    .feature-box ul li {
+      list-style: none;
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .feature-box ul li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #28a745;
+    }
+
+    /* Redesigned Report Preview */
+    #report-preview-image {
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      width: 100%;
+    }
+
+    /* Redesigned Additional Services Section */
+    .additional-services .feature-box {
+      padding: 1.5rem;
+    }
+    
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      .verification-section {
+        margin-top: 1rem;
+        padding: 2rem;
+      }
+      .main-image {
+        object-fit: contain;
+      }
+      img.result-image.img-fluid{
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar (Unchanged) -->
+  <div class="topbar">
+    <div class="container d-flex justify-content-end">
+      <span class="topbar-contact">
+        <i class="fas fa-phone"></i> +1 234 567 890
+      </span>
+      <span class="topbar-contact">
+        <i class="fas fa-envelope"></i> info@example.com
+      </span>
+    </div>
+  </div>
+
+  <!-- Hero Banner (Unchanged) -->
+  <div class="hero-banner">
+    <div class="logo-containers">
+      <img src="static/frontend/images/logo-white.jpeg" height="80" alt="Logo">
+    </div>
+    <div class="breadcrumb-wrapper">
+      <div class="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb d-flex justify-content-center">
+            <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
+            <li class="breadcrumb-item acrive"><a href="/all-cars.html">Auction Sheet Verification</a></li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Verification Result Section -->
+  <section class="verification-container container">
+    <div class="verification-section text-center">
+
+        <h2 class="verification-title">Auction Sheet Verification Service for Japanese Cars in Bangladesh</h2>
+      <p class="lead">Experience peace of mind with shkinternational’s authentic Auction Sheet Verification before purchasing your Japanese car.</p>
+      <p class="text-muted">
+        Our detailed report covers everything from surface scratches and repair history to dents, paint touch-ups, replaced components, mileage, airbags, rust evaluation, corrosion checks, as well as interior and exterior conditions and accident records—all prior to the vehicle’s import into Bangladesh. We even verify auction sheets for vehicles older than 12 years.
+      </p>
+      <p class="bengali-text">
+        যেকোন গাড়ির সম্পূর্ণ বিস্তারিত তথ্য (যেমন: NZT260-3209892) এর মাধ্যমে তথ্য সংগ্রহ করুন।
+      </p>
+
+      <div class="row justify-content-center">
+        <div class="col-md-8 ">
+          <div class="input-group search-input mb-4">
+            <input type="text" class="form-control" placeholder="Enter the Chassis Number or VIN" aria-label="Chassis Number" value="NZT260-322594">
+            <button class="btn btn-dark" type="button">Search</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 text-center d-flex justify-content-start justify-content-md-end">
+          <img src="static/frontend/images/pp_vrcomo.webp" alt="Auction Sheet result" class="result-image img-fluid" style="max-width: 400px; object-fit: contain;">
+        </div>
+        <div class="col-md-6">
+          <div class="verification-details">
+            <h4 class="verification-title text-left mb-4 pt-3 pt-md-0">Verification Details</h4>
+            <div class="detail-item">
+              <span class="detail-label">Chassis Number:</span> NZT260-322594
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Model:</span> Corolla Axio
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Year:</span> 2017
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Color:</span> Silver
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="alert alert-info" role="alert">
+            <i class="bi bi-info-circle me-2"></i>
+            The details provided are based on the original auction sheet and our comprehensive inspection. Click on the chassis image to get the true report
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        
+      </div>
+      <div class="payment-methods mt-4">
+        <h5>Pay Using</h5>
+        <div class="d-flex flex-wrap justify-content-center align-items-center">
+          <img src="static/frontend/images/payment.png" alt="SSLCommerz" width="100%">
+          
+        </div>
+        <div class="mt-2">
+          <small class="text-muted">Secured by SSLCommerz</small>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Main Content Section -->
+  <section class="container py-5">
+    <h2 class="section-header text-center mb-4">Japanese Car Auction Sheet Verification & Comprehensive Report</h2>
+    <div class="row">
+      <div class="col-md-8 pe-md-5">
+        <div class="feature-box" id="auction-verification-section">
+          <h4>How to Verify Your Japanese Car’s Auction Sheet & Detailed Report</h4>
+          <p>
+            Simply input your car’s chassis number and within seconds, shkinternational will deliver a complete auction sheet verification report, accessible on our website and sent directly to your email along with your vehicle’s image.
+          </p>
+        </div>
+  
+        <div class="feature-box mt-4">
+          <h4>Expert Consultation for Auction Sheet Verification</h4>
+          <p>
+            Protect your investment with our expert guidance. Our team at shkinternational is ready to help you understand every detail of your vehicle's auction history and condition.
+          </p>
+          <ul>
+            <li>Thorough Vehicle History Analysis</li>
+            <li>Professional Expert Advice</li>
+            <li>In-Depth Condition Assessment</li>
+            <li>Clear and Transparent Process</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex align-items-center">
+        <img src="static/frontend/images/auction-sheet.png" alt="Report Preview" id="report-preview-image">
+      </div>
+    </div>
+  </section>
+  
+  <!-- Additional Services Section -->
+  <section class="container pb-5 additional-services">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="feature-box">
+          <h4>Free Auction Sheet Verification in Bangladesh</h4>
+          <p>
+            For many Japanese car auction sheets, you can obtain a free verification within 90 days of the auction date—except for USS Auction sheets. Ensure you’re making a well-informed purchase.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="feature-box">
+          <h4>Auction Sheet Translation Service</h4>
+          <p>
+            If the auction sheet details seem overwhelming, shkinternational offers professional translation services. Request a translation after you have purchased your auction sheet, and we will clarify every detail.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <section class="footer sub-section">
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2024 SHK International. All rights reserved.</p>
+      </div>
+    </footer>
+  </section>
+  
+  <!-- Bootstrap 5 JS (Optional for components like dropdowns) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
